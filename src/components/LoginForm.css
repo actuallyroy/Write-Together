@@ -1,0 +1,90 @@
+
+.loginFormContainer{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    perspective: 1500px;
+}
+
+.signup-form{
+    position: relative;
+    transform: translateZ(-10px);
+    transform: rotateY(-180deg);
+}
+.loginSignUpForm{
+    height: 560px;
+    width: 400px;
+    transform-style: preserve-3d;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.form{
+    background-color: #F7A325;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px #00000040;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+.login{
+    transform: translateZ(1px);
+}
+.signUp{
+    top: -100%;
+    transform: rotateY(-180deg);
+}
+.b:hover{
+    cursor: pointer;
+}
+.toplabel{
+    margin-top: 20px;
+    font-size: 40px;
+    font-weight: bold;
+}
+.formBtn{
+    height: 50px;
+    width: 150px;
+    background-color: #FFBB54;
+    border: none;
+    font-size: 25px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px rgb(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.formBtn:hover{
+    transform: scale(1.05);
+}
+
+.inpt::placeholder{
+    color: #FFC977;
+}
+p{
+    position: absolute;
+    left: 70%;
+    top: 30%;
+    font-size: 25px;
+    color: #d17d0063;
+    font-family: 'Abyssinica SIL';
+}
+@keyframes flipLeft {
+    100%{
+        transform: rotateY(-180deg)
+    }
+}
+@keyframes flipRight {
+    0%{
+        transform: rotateY(-180deg);
+    }
+    100%{
+        transform: rotateY(0deg);
+    }
+    
+}

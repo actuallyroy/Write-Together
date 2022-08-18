@@ -1,0 +1,104 @@
+:root{
+    --light-gray: #EFEFEF
+}
+.left-ribbon{
+    position: fixed;
+    left: 0;
+    top: calc(55% - 300px);
+    height: 600px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 99;
+}
+
+.font-selector{
+    padding: 5px;
+    height: 40px;
+    background-color: var(--light-gray);
+    font-size: large;
+    border: none;
+    border-radius: 2px;
+    margin: 5px 5px 5px 0;
+}
+
+.font-selector::-webkit-scrollbar{
+    padding: 10px;
+    width: 8px;
+    scroll-behavior: smooth;
+}
+
+.font-selector::-webkit-scrollbar-thumb{
+    background-color: #dadce0;
+    border-radius: 10px;
+}
+.font-selector::-webkit-scrollbar-thumb:hover{
+    background-color: #80868b;
+}
+.font-selector::-webkit-scrollbar-track{
+    border-radius: 11px;
+}
+
+
+.size-selector{
+    width: 60px;
+}
+
+.biu-cont{
+    display: flex;
+    margin-top: 5px;
+}
+
+.ic{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    background-color: var(--light-gray);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+    margin: 5px 5px 5px 0;
+    cursor: pointer;
+}
+
+.hide-toggle-button{
+    position: absolute;
+    left: calc(100% - 13px);
+    top: calc(50% - 60px);
+    cursor: pointer;
+}
+
+.hide-toggle-button:hover{
+    transform: scale(1.1);
+}
+
+
+@keyframes slideLeft {
+    0%{
+        left: 0;
+    }
+    100%{
+        left: -287px;
+    }
+    
+}
+
+@keyframes slideRight {
+    0%{
+        left: -287px;
+    }
+    100%{
+        left: -0;
+    }
+    
+}
+
+.pg{
+    margin-top: 20px;
+}
