@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import './LeftRibbon.css'
 import {TextAlignJustify, TextAlignLeft, TextAlignRight, TextAlignCenter} from 'phosphor-react'
 import left from './left.svg'
-let togBold = true, togItalic = true, togUnderline = true, alignment = 0;
+import {constants} from '../constants'
+var axios = require('axios')
+let togBold = true, togItalic = true, togUnderline = true;
 let leftRibbonHiden = false;
+
+let arr
 
 class LeftRibbon extends Component {
     render() {
@@ -25,12 +29,13 @@ class LeftRibbon extends Component {
             togUnderline= true
         }
 
+        arr = ['#EFEFEF', '#EFEFEF', '#EFEFEF', '#EFEFEF']
+        arr[Number(this.props.alignm)] = "gray"
 
-
-        //return
 
         return (
-            <div className='left-ribbon'>
+            <div
+                className='left-ribbon' tabIndex={1}>
                 {/*hide button*/}
                 <div
                     onClick={() =>{
@@ -69,10 +74,10 @@ class LeftRibbon extends Component {
 
                 <select
                     id='fontSizeSelector'
+                    value={this.props.fontSize}
                     onChange={() =>{
                         let fontSize = Number(document.getElementById("fontSizeSelector").value)
                         document.execCommand('fontSize', false, fontSize)
-                        console.log(document.queryCommandValue("fontSize"));
                     }}
                     className='font-selector size-selector'>
                         <option value="1">1</option>
@@ -87,35 +92,42 @@ class LeftRibbon extends Component {
 
                 {/* Bold Italic Underline */}
                 <div className='biu-cont'>
-                    <span id='b' onClick={() =>{
-                        if(togBold){
-                            document.getElementById("b").style.backgroundColor = "gray"
-                            togBold = false
-                            if(window.getSelection().toString().length > 0){
-                                console.log("here");
-                                togBold = Boolean(document.queryCommandValue("Bold"))
+                    <button id='b'
+                        onClick={() =>{                        
+                            if(togBold){
+                                document.getElementById("b").style.backgroundColor = "gray"
+                                togBold = false
+                                if(window.getSelection().toString().length > 0){
+                                    togBold = Boolean(document.queryCommandValue("Bold"))
+                                }
+                                document.execCommand('bold', false, true)
                             }
-                            document.execCommand('bold', false, true)
-                        }
-                        else{
-                            document.getElementById("b").style.backgroundColor = "#EFEFEF"
-                            togBold = true
-                            document.execCommand('bold', false, false)
-                        }
-                    }} style={{backgroundColor: this.props.bold}} className='ic'><b>B</b></span>
-                    <span id='i' onClick={() =>{
-                        if(togItalic){
-                            document.getElementById("i").style.backgroundColor = "gray"
-                            togItalic = false
-                            document.execCommand('italic', false, true)
-                        }
-                        else{
-                            document.getElementById("i").style.backgroundColor = "#EFEFEF"
-                            togItalic = true
-                            document.execCommand('italic', false, false)
-                        }
-                    }} style={{backgroundColor: this.props.italic}} className='ic'><i>I</i></span>
-                    <span id='u' onClick={()=>{
+                            else{
+                                document.getElementById("b").style.backgroundColor = "#EFEFEF"
+                                togBold = true
+                                document.execCommand('bold', false, false)
+                            }
+                        }}
+                        style={{backgroundColor: this.props.bold}} className='ic'><b>B</b>
+                    </button>
+
+
+                    <button id='i'
+                        onClick={() =>{
+                            if(togItalic){
+                                document.getElementById("i").style.backgroundColor = "gray"
+                                togItalic = false
+                                document.execCommand('italic', false, true)
+                            }
+                            else{
+                                document.getElementById("i").style.backgroundColor = "#EFEFEF"
+                                togItalic = true
+                                document.execCommand('italic', false, false)
+                            }
+                        }}
+                        style={{backgroundColor: this.props.italic}} className='ic'><i>I</i>
+                    </button>
+                    <button id='u' onClick={()=>{
                         if(togUnderline){
                             document.getElementById("u").style.backgroundColor = "gray"
                             togUnderline = false
@@ -126,33 +138,38 @@ class LeftRibbon extends Component {
                             togUnderline = true
                             document.execCommand('underline', false, false)
                         }
-                    }} style={{backgroundColor: this.props.underline}} className='ic'><u>U</u></span>
+                    }} style={{backgroundColor: this.props.underline}} className='ic'><u>U</u>
+                    </button>
                 </div>
                 
 
 
                 {/* Alignment Buttons */}
                 <div className='biu-cont'>
-                    <TextAlignLeft id='alignLeftBtn' onClick={() => {
+                    <TextAlignLeft onClick={() => {
                         setAlignment(0)
-                        let alignLeftBtn = document.getElementById("alignLeftBtn")
-                        if(alignment === 0){
-                            alignLeftBtn.style.backgroundColor = 'gray'
-                        }else{
-                            alignLeftBtn.style.backgroundColor = '#EFEFEF'
-                        }
-                    }} className='ic' size={40} color="#000" weight="thin" />
-                    <TextAlignCenter onClick={() => setAlignment(1)} className='ic' size={40} color="#000" weight="thin" />
-                    <TextAlignRight onClick={() => setAlignment(2)} className='ic' size={40} color="#000" weight="thin" />
-                    <TextAlignJustify onClick={() => setAlignment(3)} className='ic' size={40} color="#000" weight="thin" />
+                        setAlignMentColor(0)
+                    }} className='ic ab' style={{backgroundColor: arr[0]}} size={40} color='#000' weight="thin" />
+                    <TextAlignCenter id='alignCenterBtn' onClick={() => {
+                        setAlignment(1)
+                        setAlignMentColor(1)
+                    }} className='ic ab' style={{backgroundColor: arr[1]}} size={40} color="#000" weight="thin" />
+                    <TextAlignRight id='aignRightBtn' onClick={() => {
+                        setAlignment(2)
+                        setAlignMentColor(2)
+                    }} className='ic ab' style={{backgroundColor: arr[2]}} size={40} color='#000' weight="thin" />
+                    <TextAlignJustify id='alignFullBtn' onClick={() => {
+                        setAlignment(3)
+                        setAlignMentColor(3)
+                    }} className='ic ab' style={{backgroundColor: arr[3]}} size={40} color='#000' weight="thin" />
                 </div>
 
                 {/* Colors */}
                 <div className='biu-cont'>
-                    <span onClick={() => setColor("#000")} style={{backgroundColor: defaultColors[0]}} className='icc'></span>
-                    <span onClick={() => setColor("#fff")} style={{backgroundColor: defaultColors[1]}} className='icc'></span>
-                    <span onClick={() => setColor("#f00")} style={{backgroundColor: defaultColors[2]}} className='icc'></span>
-                    <span onClick={() => setColor("gold")} style={{backgroundColor: defaultColors[3]}} className='icc'></span>
+                    <button onClick={() => setColor("#000")} style={{backgroundColor: defaultColors[0]}} className='icc'></button>
+                    <button onClick={() => setColor("#fff")} style={{backgroundColor: defaultColors[1]}} className='icc'></button>
+                    <button onClick={() => setColor("#f00")} style={{backgroundColor: defaultColors[2]}} className='icc'></button>
+                    <button onClick={() => setColor("gold")} style={{backgroundColor: defaultColors[3]}} className='icc'></button>
                     <input id='colorPicker'
                         onClick={() =>{
                             let colorPicker = document.getElementById("colorPicker")
@@ -172,10 +189,10 @@ class LeftRibbon extends Component {
                 <div className='label pg'>Page</div>
 
                 <div className='biu-cont'>
-                    <span onClick={() => this.props.setPageColor("gray")} style={{backgroundColor: defaultPageColors[0]}} className='icc'></span>
-                    <span onClick={() => this.props.setPageColor("#fff")} style={{backgroundColor: defaultPageColors[1]}} className='icc'></span>
-                    <span onClick={() => this.props.setPageColor("#FFD58E")} style={{backgroundColor: defaultPageColors[2]}} className='icc'></span>
-                    <span onClick={() => this.props.setPageColor("#b4b2d7")} style={{backgroundColor: defaultPageColors[3]}} className='icc'></span>
+                    <button onClick={() => this.props.setPageColor("gray")} style={{backgroundColor: defaultPageColors[0]}} className='icc'></button>
+                    <button onClick={() => this.props.setPageColor("#fff")} style={{backgroundColor: defaultPageColors[1]}} className='icc'></button>
+                    <button onClick={() => this.props.setPageColor("#FFD58E")} style={{backgroundColor: defaultPageColors[2]}} className='icc'></button>
+                    <button onClick={() => this.props.setPageColor("#b4b2d7")} style={{backgroundColor: defaultPageColors[3]}} className='icc'></button>
                     <input id='pgColorPicker'
                         defaultValue='#FFF2DB'
                         style={{backgroundColor: '#FFF2DB'}}
@@ -183,7 +200,6 @@ class LeftRibbon extends Component {
                             let colorPicker = document.getElementById("pgColorPicker")
                             colorPicker.style.backgroundColor = colorPicker.value
                             this.props.setPageColor(colorPicker.value)
-                            document.style.caretColor = colorPicker.value
                         }}
                         onChange={() =>{
                             let colorPicker = document.getElementById("pgColorPicker")
@@ -192,8 +208,50 @@ class LeftRibbon extends Component {
                         }}
                     type='color' className='icc m'></input>
                 </div>
+
+                <div className='biu-cont'>
+                    <div className='f-btn-cont'>
+                        <button onClick={() =>{
+                            let story = this.props.story
+                            if(story.body){
+                                let username = localStorage.getItem("username")
+                                story.mauthor = username
+                                let token = localStorage.getItem("token")
+                                if(story.docID){
+                                    axios.put(`${constants.API_HOST}/api/docs/update/${story.docID}`, story, {headers: {Authorization: token}})
+                                    .then(res =>{
+                                        console.log("here")
+                                        document.querySelector(".f-btn.s").style.backgroundColor = "gray"
+                                    })
+                                    .catch(error => console.log(error))
+                                }else{
+                                    axios.put(`${constants.API_HOST}/api/docs/${username}`, story, {headers: {Authorization: token}})
+                                    .then((res) =>{
+                                        window.location.href = "/edit/" + res.data.docID
+                                    })
+                                    .catch((error) =>{
+                                        console.log(error)
+                                    })
+                                }
+                            }
+                        }} className='f-btn s'>Save</button>
+                        <button className='f-btn d'>Discard</button>
+                    </div>
+                </div>
             </div>
         ); 
+    }
+}
+
+
+function setAlignMentColor(n){
+    const ab = document.querySelectorAll(".ab");
+    for (var i = 0; i < ab.length; i++){
+        if(i === n){
+            ab[i].style.backgroundColor = "gray"
+        }else{
+            ab[i].style.backgroundColor = "#EFEFEF"
+        }
     }
 }
 
@@ -251,7 +309,9 @@ let fonts = [
     'Open Sans',
     'Montserrat',
     'Roboto',
-    'Playfair Display'
+    'Playfair Display',
+    'Inter',
+    'Fira Code'
 ]
 
 function getFonts() {
@@ -278,18 +338,25 @@ function setAlignment(alignment){
         case 0:
             document.execCommand("justifyLeft", false, true)
             break;
+
         case 1:
             document.execCommand("justifyCenter", false, true)
             break;
+
         case 2:
             document.execCommand("justifyRight", false, true)
             break;
+
         case 3:
-            document.execCommand("justifyFull", false, true)
+        document.execCommand("justifyFull", false, true)
             break;
+
         default:
             break;
     }
 }
+
+
+
 
 export default LeftRibbon;

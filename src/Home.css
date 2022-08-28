@@ -2,11 +2,54 @@
     --primary-color: #F7A325 !important;
     --secondry-color: #FFD58E;
 }
+*{
+    -webkit-tap-highlight-color: transparent;
+}
+body{
+    overflow: hidden;
+}
+.body{
+
+    overflow-x: hidden;
+    margin-right: 3px;
+    background-color: rgb(250, 250, 250);
+}
+*::-webkit-scrollbar{
+    padding: 10px;
+    width: 8px;
+    scroll-behavior: smooth;
+}
+
+*::-webkit-scrollbar-thumb{
+    background-color: #dadce0;
+    border-radius: 10px;
+}
+*::-webkit-scrollbar-thumb:hover{
+    background-color: #80868b;
+}
+*::-webkit-scrollbar-track{
+    border-radius: 11px;
+}
+
+.title{
+    margin-top: 20px;
+    text-align: center;
+}
+.title input{
+    font-size: larger;
+    border: none;
+    padding: 5px;
+    text-align: center;
+    width: 210mm;
+    font-weight: bold;
+}
+
+
 .main-container{
     height: 100vh;
     width: 100vw;
     display: grid;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 9% 91%;
 }
 
 .header{
@@ -16,6 +59,22 @@
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr;
     z-index: 1;
+    position: fixed;
+    width: 100vw;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.btn{
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.new-btn:active{
+    transform: scale(1.1);
+}
+
+.psuedoHeader{
+    height: 70px;
 }
 
 .profile-pic{
@@ -28,35 +87,12 @@
     justify-content: space-evenly;
 }
 
-.body{
-    display: flex;
-    justify-content: center;
-    overflow-x: hidden;
-    margin-right: 3px;
-    background-color: rgb(250, 250, 250);
-}
-.body::-webkit-scrollbar{
-    padding: 10px;
-    width: 8px;
-    scroll-behavior: smooth;
-}
-
-.body::-webkit-scrollbar-thumb{
-    background-color: #dadce0;
-    border-radius: 10px;
-}
-.body::-webkit-scrollbar-thumb:hover{
-    background-color: #80868b;
-}
-.body::-webkit-scrollbar-track{
-    border-radius: 11px;
-}
 
 .editor-textarea{
     outline: none;
     border: none;
     border-radius: 5px;
-    height: 297mm;
+    min-height: 297mm;
     width: 210mm;
     color: black;
     font-family: 'Century Gothic';
@@ -65,28 +101,9 @@
     box-sizing: border-box;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
     background-color: var(--secondry-color);
-    resize: none;
     margin-top: 10px;
+    margin-bottom: 10px;
     touch-action: none;
     position: relative;
-}
-
-.icc{
-    height: 30px;
-    width: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    margin: 0 20px 0 0;
-    cursor: pointer;
-}
-.icc.m{
-    background-color: black;
-    border: none;
-}
-.icc.m:hover{
-    transform: scale(1.1);
-}
-
-.icc.m::-webkit-color-swatch{
-    border: none;
+    left: calc(50% - 105mm);
 }

@@ -8,6 +8,7 @@
     width: 100%;
     justify-content: center;
     perspective: 1500px;
+    color: white;
 }
 
 .signup-form{
@@ -58,9 +59,25 @@
     border-radius: 5px;
     box-shadow: 0px 2px 6px rgb(0, 0, 0, 0.2);
     cursor: pointer;
+    color: white;
+}
+
+.lnk{
+    text-decoration: none;
+    color: white;
 }
 .formBtn:hover{
     transform: scale(1.05);
+}
+.inpt{
+    background-color: transparent;
+    border-color: #FFE9C9;
+    border-width: 0 0 4px 0;
+    border-radius: 2px;
+    outline: none;
+    font-size: 25px;
+    color: #FFE4BA;
+    margin: 0 0 20px 0;
 }
 
 .inpt::placeholder{
@@ -74,6 +91,18 @@ p{
     color: #d17d0063;
     font-family: 'Abyssinica SIL';
 }
+
+.error-message{
+    text-align: left;
+    padding-left: 45px;
+    color: red;
+    visibility: hidden;
+}
+
+
+
+
+
 @keyframes flipLeft {
     100%{
         transform: rotateY(-180deg)

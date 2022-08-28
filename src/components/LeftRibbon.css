@@ -60,11 +60,12 @@
     align-items: center;
     height: 40px;
     width: 40px;
-    background-color: var(--light-gray);
+    /* background-color: var(--light-gray); */
     font-family: 'Times New Roman', Times, serif;
     font-size: larger;
     margin: 5px 5px 5px 0;
     cursor: pointer;
+    border: none;
 }
 
 .hide-toggle-button{
@@ -74,10 +75,62 @@
     cursor: pointer;
 }
 
+.icc{
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    margin: 0 20px 0 0;
+    border: none;
+    cursor: pointer;
+}
+.icc.m{
+    background-color: black;
+    border: none;
+}
+.icc.m:hover{
+    transform: scale(1.1);
+}
+
+.icc.m::-webkit-color-swatch{
+    border: none;
+}
+
 .hide-toggle-button:hover{
     transform: scale(1.1);
 }
 
+
+.f-btn-cont{
+    display: flex;
+    width: 100%;
+    margin-top: 100px;
+    justify-content: space-evenly;
+}
+
+.f-btn{
+    padding: 10px;
+    width: 100px;
+    background-color: #F7A325;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    height: 40px;
+    color: white;
+    font-size: medium;
+    box-shadow: 0 0 6px rgb(0, 0, 0, 0.2);
+}
+
+.f-btn:hover{
+    background-color: #dc8400;
+}
+.f-btn.d{
+    background-color: gray;
+}
+
+.f-btn.d:hover{
+    background-color: rgb(99, 99, 99);
+}
 
 @keyframes slideLeft {
     0%{

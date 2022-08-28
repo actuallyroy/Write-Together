@@ -1,0 +1,76 @@
+.feedCard{
+    height: 560px;
+    width: 500px;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius:10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-rows: 1fr 6fr 1fr;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.feecard-head{
+    background-color: #FFECD1;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 12% 62% 13% 13%;
+}
+
+.icn{
+    cursor: pointer;
+    text-decoration: none;
+    color: #D17100;
+}
+.icn:hover{
+    color: #ce4f00;
+}
+
+.post-title{
+    font-weight: bold;
+    font-size: large;
+}
+
+.username-placeholder{
+    font-weight: bold;
+    color: #D17100;
+}
+
+
+.feed-card-footer{
+    background-color: #F8F8F8;
+    border-radius: 0 0 10px 10px;
+    border-top: 2px solid #D6D6D6;
+    display: grid;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    grid-template-columns: 12% 12% 12% 64%;
+}
+
+.feed-card-body{
+    width: 500px;
+    height: 420px;
+    text-align: center;
+    background-color: #dddddd
+}
+
+.feed-card-cover{
+    height: 420px;
+    width: 300px;
+    object-fit: contain;
+    background-color: white;
+}
+
+.oauthors{
+    background-color: rgba(240, 240, 240, 0.7);
+    position: relative;
+    top: -35px;
+    max-width: 500px;
+    padding: 5px;
+    border-radius: 20px;
+}
