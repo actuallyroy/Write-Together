@@ -1,4 +1,4 @@
 const constants = {
-    API_HOST: "http://localhost:3000"
-}
+  API_HOST: "https://write-together-api.herokuapp.com/",
+};
 export {constants}
