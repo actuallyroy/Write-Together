@@ -47,7 +47,7 @@ function Friends() {
 function getFriendRequestsCard(friendRequests){
   if(friendRequests.length > 0)
     return (
-      <>  <div className="label">Friend Requests</div>
+      <>  <div className="label l">Friend Requests</div>
         {
           
           friendRequests.map(item => {
@@ -77,7 +77,7 @@ function getFriendRequestsCard(friendRequests){
 function getFriendRequestsSentCard(friendRequestsSent){
   if(friendRequestsSent.length > 0)
     return (
-      <>  <div className="label">Requests Sent</div>
+      <>  <div className="label l">Requests Sent</div>
         {
           friendRequestsSent.map(item => {
             return(
@@ -103,7 +103,7 @@ function getFriendsList(friends) {
   if(friends.length > 0)
     return (
       <>
-        <div className="label">Friends  </div>
+        <div className="label l">Friends  </div>
         {
           friends.map(item => {
             return(

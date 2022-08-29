@@ -15,3 +15,6 @@
     box-sizing: border-box;
 }
 
+a.icn:hover{
+    text-decoration: underline;
+}

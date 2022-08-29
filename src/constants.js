@@ -4,7 +4,6 @@ const constants = {
 
 function verifyLogin() {
   let token = window.localStorage.getItem("token")
-  console.log(token)
   if (token) {
     let l = token.length
     let tkn = token.substring(l-8, l)

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Header from "./components/Header"
 import { useParams } from 'react-router-dom'
 import { constants, verifyLogin } from './constants'
+import ContextMenu from "./components/ContextMenu";
 
 const axios = require('axios')
 
@@ -31,6 +32,9 @@ function Home() {
     let [fontSize, setFontSize] = useState(4)
     let [alignm, setAlignm] = useState(0)
     let [story, setStory] = useState({})
+    let [posX, setPosX] = useState(0)
+    let [posY, setPosY] = useState(0);
+    let [showCM, setShowCM] = useState("none")
     
     //variables for document rendering
     let params = useParams()
@@ -60,9 +64,8 @@ function Home() {
             })
     }
     tempStory['pageColor'] = pageColor
-    console.log(tempStory)
     return (
-        <>
+        <>  <ContextMenu show={showCM} top={posY} left={posX} />
             <div className="main-container">
                 <Header />
                 <div className="body">
@@ -99,9 +102,10 @@ function Home() {
                                 sel.addRange(range);
                             }
                         }}
-
+                        onClick={() => setShowCM("none")}
                         //detect bold, italic or underline
-                        onSelect={() =>{
+                        onSelect={() => {
+                            // setShowCM("none");
                             document.querySelector(".f-btn.s").style.backgroundColor = "#F7A325"
                             titleHasFocus = false
                             if(document.queryCommandValue("Bold") === 'true'){
@@ -191,8 +195,14 @@ function Home() {
 
                             }
                         }}
-                    ></div>
 
+                        onContextMenu={(e) => {
+                            e.preventDefault()
+                            setPosX(e.clientX);
+                            setPosY(e.clientY-17);
+                            setShowCM("fade-in 500ms")
+                        }}
+                    ></div>
                 </div>
             </div>
         </>

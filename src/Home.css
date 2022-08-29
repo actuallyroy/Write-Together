@@ -63,21 +63,19 @@ body{
     width: 100vw;
     -webkit-user-select: none;
     user-select: none;
+    height: 60px;
 }
 .btn{
     margin-right: 20px;
     cursor: pointer;
 }
 
-.new-btn:active{
-    transform: scale(1.1);
-}
-
 .psuedoHeader{
-    height: 70px;
+    height: 60px;
 }
 
 .profile-pic{
+    display: flex;
     justify-self: flex-end;
     margin-right: 10px;
 }
@@ -95,15 +93,19 @@ body{
     min-height: 297mm;
     width: 210mm;
     color: black;
-    font-family: 'Century Gothic';
+    font-family: 'Arial';
     font-size: larger;
     padding: 0.5in;
     box-sizing: border-box;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
     background-color: var(--secondry-color);
     margin-top: 10px;
     margin-bottom: 10px;
     touch-action: none;
     position: relative;
     left: calc(50% - 105mm);
+}
+
+.editor-textarea:hover{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
