@@ -3,9 +3,11 @@ import LeftRibbon from "./components/LeftRibbon";
 import { useState } from "react";
 import Header from "./components/Header"
 import { useParams } from 'react-router-dom'
-import {constants} from './constants'
+import { constants, verifyLogin } from './constants'
 
-const  axios = require('axios')
+const axios = require('axios')
+
+//variable to check if the title input has focus and disable auto focus for document editor
 
 let titleHasFocus = false
 
@@ -16,10 +18,11 @@ let tpNew, tpOld, lefNew, lefOld
 let tempStory = {}
 
 
+function Home() { 
+    //verify login and redirect to login page if varification fails
+    verifyLogin();
 
-    
-
-function Home(){    
+    //variables for editor
     let [bold, setBold] = useState("#EFEFEF")
     let [italic, setItalic] = useState("#EFEFEF")
     let [underline, setUnderline] = useState("#EFEFEF")
@@ -28,30 +31,33 @@ function Home(){
     let [fontSize, setFontSize] = useState(4)
     let [alignm, setAlignm] = useState(0)
     let [story, setStory] = useState({})
+    
+    //variables for document rendering
     let params = useParams()
     let docID = params.documentId
-    if(docID){
+
+    if (docID) {
         let token = window.localStorage.getItem("token")
         axios.get(`${constants.API_HOST}/api/docs/${docID}`, {headers: {Authorization: token}})
-        .then(res => {
-            if(res.data.body && Object.keys(tempStory).length === 1){
-                tempStory = res.data
-                document.getElementById("textEditor").innerHTML = res.data.body
-                document.getElementById("title").value = res.data.title
-                if(res.data.pageColor)
-                    document.getElementById("textEditor").style.backgroundColor = res.data.pageColor
-            }
-        })
-        .catch(error => {
+            .then(res => {
             
-            let status = error.response.status
-            if(status === 404){
-                window.location.href = "/edit"
-            }else if (status === 401){
-                window.location.href = "/login"
-            }else if(status === 403)    
-                window.location.href = "/branch/" + docID
-        })
+                if (res.data.body && Object.keys(tempStory).length === 1) {
+                    tempStory = res.data
+                    document.getElementById("textEditor").innerHTML = res.data.body
+                    document.getElementById("title").value = res.data.title
+                    if (res.data.pageColor)
+                        document.getElementById("textEditor").style.backgroundColor = res.data.pageColor
+                }
+            })
+            .catch(error => {
+                let status = error.response.status
+                if(status === 404){
+                    window.location.href = "/edit"
+                }else if (status === 401){
+                    window.location.href = "/login"
+                }else if(status === 403)    
+                    window.location.href = "/branch/" + docID
+            })
     }
     tempStory['pageColor'] = pageColor
     console.log(tempStory)

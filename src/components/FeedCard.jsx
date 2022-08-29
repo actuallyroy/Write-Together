@@ -69,7 +69,7 @@ class FeedCard extends Component {
                             }
                         })
                     }} className='icn' size={45} fill={liked} weight='fill' />
-                    <ChatTeardrop className='icn' size={45} color="#B6B6B6" />
+                    <ChatTeardrop className='icn' size={45} color="#B6B6B6" weight='fill'/>
                     <ShareNetwork className='icn' size={45} color="#b6b6b6" weight="fill" />
                     <div style={{textAlign: 'right', display: editBtnHide}}>
                         <a href={EditLink}>

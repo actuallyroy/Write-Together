@@ -22,7 +22,7 @@ class Logo extends Component {
                     style = {{
                         margin: '10px',
                         position: 'absolute',
-                        top: '-10px'
+                        top: '-15px'
                     }}
                 >
                 </img>

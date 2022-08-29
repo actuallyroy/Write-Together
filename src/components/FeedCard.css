@@ -28,6 +28,7 @@
 }
 .icn:hover{
     color: #ce4f00;
+    filter: brightness(0.8);
 }
 
 .post-title{

@@ -2,31 +2,36 @@ import Header from "./components/Header"
 import "./Feed.css"
 import FeedCard from "./components/FeedCard"
 import React, { Component } from 'react';
-import {constants} from "./constants"
+import LoadingScreen from "./components/LoadingScreen";
+import { constants, verifyLogin } from "./constants"
 var axios = require('axios')
 
 class Feed extends Component {
   constructor(props){
     super(props)
     this.state = {
-      feedData: []
+      feedData: [],
+      hideLoad: 'block'
     }
     let username = window.localStorage.getItem("username")
     axios.post(`${constants.API_HOST}/api/feed`, {username: username})
-    .then(res => {
-      this.setState({feedData: res.data})
+      .then(res => {
+        if (this.state.feedData.length === 0) {
+          this.setState({ feedData: res.data, hideLoad: 'none' })
+        }
     })
   }
   render() {
-    
-    return (  
+    verifyLogin()
+    return (
       <>
         <Header homeColor="#FF4040" />
         <div className="feedBody">
           <div className="feed-card-holder">
-            {
-              getFeedCards(this.state.feedData)
-            }
+            <LoadingScreen hide={this.state.hideLoad} />
+            <LoadingScreen hide={this.state.hideLoad} />
+            <LoadingScreen hide={this.state.hideLoad} />
+            {getFeedCards(this.state.feedData)}
           </div>
         </div>
       </>
@@ -39,7 +44,6 @@ export default Feed;
 
 
 function getFeedCards(feedData) {
-  console.log(feedData)
   return(
     <>
       {
