@@ -1,5 +1,5 @@
 :root{
-    --primary-color: #F7A325 !important;
+    --primary-color: #F7A325;
     --secondry-color: #FFD58E;
 }
 *{
@@ -53,7 +53,6 @@ body{
 }
 
 .header{
-    background-color: var(--primary-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     display: grid;
     align-items: center;

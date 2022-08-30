@@ -1,17 +1,40 @@
 const constants = {
-  API_HOST: "https://write-together-api.herokuapp.com",
-  primaryColor: "#F7A325 ",
-  secondryColor: "#ff4040",
-  boxColors: '#FFE9C9',
-  heartColor: "red",
-  userNameTextColor: '#D17100',
-  grayD: "#ddd",
-  grayF8: "#f8f8f8",
-  grayB6: "#b6b6b6",
-  grayF0: '#f0f0f0',
-  white: 'white',
-  black: 'black'
+  // API_HOST: "https://write-together-api.herokuapp.com"
+  API_HOST: "http://localhost:3000",
 };
+
+const themeColor = {
+  light: {
+    primaryColor: "#F7A325 ",
+    secondryColor: "#ff4040",
+    boxColors: "#FFE9C9",
+    heartColor: "red",
+    userNameTextColor: "#D17100",
+    pageBgColor: "white",
+    textColor: "black",
+    feedCardHead: "#FFECD1",
+  },
+  dark: {
+    primaryColor: "#331400",
+    secondryColor: "#ffcccc",
+    boxColors: "#FFE9C9",
+    heartColor: "red",
+    userNameTextColor: "#D17100",
+    pageBgColor: "white",
+    textColor: "black",
+    feedCardHead: "#FFECD1",
+  },
+};
+
+if (!localStorage.getItem('theme') || localStorage.getItem("theme") === undefined) {
+  localStorage.setItem("theme", 'light')
+}
+
+
+function changeTheme(theme) {
+  window.localStorage.setItem("theme", theme)
+}
+
 
 function verifyLogin() {
   let token = window.localStorage.getItem("token")
@@ -26,4 +49,5 @@ function verifyLogin() {
     window.location.href = "/login"
   }
 }
-export {constants, verifyLogin}
+
+export {constants, themeColor, verifyLogin, changeTheme}

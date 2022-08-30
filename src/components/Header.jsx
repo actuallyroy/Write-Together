@@ -4,22 +4,30 @@ import Logo from "./Logo";
 import {House, Users, Books, SunDim, Moon} from 'phosphor-react';
 import defaultUser from '../defaultUser.svg'
 import { Link } from 'react-router-dom'
-import { verifyLogin } from '../constants'
+import { verifyLogin, changeTheme, themeColor } from '../constants'
 
+let arr = ['block', 'none']
+let theme = localStorage.getItem('theme')
 
 class Header extends Component {
   render() {
+    if (theme === 'dark') {
+      arr = ['none', 'block']
+    } else {
+      arr = ["block", "none"];
+    }
     verifyLogin()
     let homeColor = "#ffffff", friendColor = "#ffffff", booksColor = '#ffffff', searchColor = '#ffffff'
-
     if(this.props.homeColor) homeColor = this.props.homeColor
     if(this.props.friendColor) friendColor = this.props.friendColor
     if(this.props.booksColor) booksColor = this.props.booksColor
     if(this.props.searchColor) searchColor = this.props.searchColor
     return (
       <>
-        <div className="header">
-          <Logo th={1} size={85} />
+        <div style={{
+          backgroundColor: themeColor[theme].primaryColor
+        }} className="header">
+          <Logo th={0} size={85} />
           <div className="icons-container">
             <Link to={"/feed"}>
               <House
@@ -98,13 +106,18 @@ class Header extends Component {
               />
             </svg>
             <div>
-              <Moon id='themeDarkBtn'style={{display: 'none'}} onClick={() => {
+              <Moon id='themeDarkBtn' style={{display: arr[0]}} onClick={() => {
                 document.getElementById("themeDarkBtn").style.display = "none";
-                document.getElementById("themeLightBtn").style.display ="block";
-              }} className='icn c' size={50} color="#ffffff" weight="fill" />
-              <SunDim id='themeLightBtn' onClick={() => {
+                document.getElementById("themeLightBtn").style.display = "block";
+                changeTheme('dark')
+                this.setState(themeColor['dark']);
+
+              }} className='icn c' size={50} color="#000000" weight="fill" />
+              <SunDim id='themeLightBtn' style={{display: arr[1]}} onClick={() => {
                 document.getElementById("themeDarkBtn").style.display = "block";
                 document.getElementById("themeLightBtn").style.display = "none";
+                changeTheme("light");
+                this.setState(themeColor["light"]);
               }} className="icn c" size={50} color="#ffffff" weight="fill" />
             </div>
             <img alt="Profile Pic" height={50} src={defaultUser} />

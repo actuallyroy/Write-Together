@@ -19,9 +19,12 @@
     display: grid;
     align-items: center;
     grid-template-columns: 12% 62% 13% 13%;
+    border-radius: 10px 10px 0 0;
 }
 
 .icn{
+    height: 50px;
+    width: 50px;
     cursor: pointer;
     text-decoration: none;
     color: #D17100;

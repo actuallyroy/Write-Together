@@ -3,7 +3,7 @@ import "./Feed.css"
 import FeedCard from "./components/FeedCard"
 import React, { Component } from 'react';
 import LoadingScreen from "./components/LoadingScreen";
-import { constants, verifyLogin } from "./constants"
+import { constants, verifyLogin,themeColor } from "./constants"
 var axios = require('axios')
 
 class Feed extends Component {
@@ -25,7 +25,7 @@ class Feed extends Component {
     verifyLogin()
     return (
       <>
-        <Header homeColor="#FF4040" />
+        <Header homeColor={themeColor[localStorage.getItem('theme')].secondryColor} />
         <div className="feedBody">
           <div className="feed-card-holder">
             <LoadingScreen hide={this.state.hideLoad} />

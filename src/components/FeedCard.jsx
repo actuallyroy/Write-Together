@@ -3,6 +3,7 @@ import "./FeedCard.css"
 import defaultUser from "../defaultUser.svg"
 import {BookmarkSimple, BookOpen, Heart, ChatTeardrop, ShareNetwork} from 'phosphor-react'
 import { Link } from 'react-router-dom'
+import Reaction from './Reaction';
 import {constants} from '../constants'
 
 let axios = require('axios')
@@ -55,7 +56,14 @@ class FeedCard extends Component {
                 </div>
 
                 <div className='feed-card-footer'>
-                    <Heart onClick={() => {
+                    <Reaction />
+                    {/* <Heart id="likeBtn" style={{fill: liked}} onClick={() => {
+                        let likeBtn = document.getElementById("likeBtn")
+                        console.log(likeBtn.style.fill)
+                        if (likeBtn.style.fill === 'red')
+                            likeBtn.style.fill = '#B6B6B6'
+                        else
+                            likeBtn.style.fill = 'red'
                         let username = window.localStorage.getItem("username")
                         let token = window.localStorage.getItem("token")
                         console.log(this.props.data)
@@ -68,7 +76,7 @@ class FeedCard extends Component {
                                 this.setState({liked: '#B6B6B6'})
                             }
                         })
-                    }} className='icn' size={45} fill={liked} weight='fill' />
+                    }} className='icn' size={45} weight='fill' /> */}
                     <ChatTeardrop className='icn' size={45} color="#B6B6B6" weight='fill'/>
                     <ShareNetwork className='icn' size={45} color="#b6b6b6" weight="fill" />
                     <div style={{textAlign: 'right', display: editBtnHide}}>
