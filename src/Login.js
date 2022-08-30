@@ -1,11 +1,10 @@
 import Logo from './components/Logo';
 import LoginForm from './components/LoginForm';
-import {useParams} from 'react-router-dom'
-import { useState } from 'react';
+let loginSignup = 'none'
 
-function Login(){
-    let params = useParams()
-    let loginSignup = params.loginSignup
+function Login() {
+    if(window.location.href.includes("signup"))
+        loginSignup = "signup"
     return(
         <div className="container">
             <Logo size={150} th={2}/>

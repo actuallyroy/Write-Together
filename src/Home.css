@@ -109,3 +109,22 @@ body{
 .editor-textarea:hover{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
+.icn.b{
+    height: 50px;
+    margin: 5px;
+    border-radius: 5px;
+}
+.icn.b:hover{
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    animation: darken 250ms forwards;
+}
+
+
+@keyframes darken {
+    0%{
+        background-color: rgba(0, 0, 0, 0);
+    }
+    100%{
+        background-color: rgba(0, 0, 0, 0.16);
+    }
+}

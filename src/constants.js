@@ -1,5 +1,16 @@
 const constants = {
   API_HOST: "https://write-together-api.herokuapp.com",
+  primaryColor: "#F7A325 ",
+  secondryColor: "#ff4040",
+  boxColors: '#FFE9C9',
+  heartColor: "red",
+  userNameTextColor: '#D17100',
+  grayD: "#ddd",
+  grayF8: "#f8f8f8",
+  grayB6: "#b6b6b6",
+  grayF0: '#f0f0f0',
+  white: 'white',
+  black: 'black'
 };
 
 function verifyLogin() {

@@ -23,7 +23,7 @@ class Header extends Component {
           <div className="icons-container">
             <Link to={"/feed"}>
               <House
-                className="icn"
+                className="icn b"
                 size={60}
                 color={homeColor}
                 weight="fill"
@@ -31,7 +31,7 @@ class Header extends Component {
             </Link>
             <Link to={"/friends"}>
               <Users
-                className="icn"
+                className="icn b"
                 size={60}
                 color={friendColor}
                 weight="fill"
@@ -39,7 +39,7 @@ class Header extends Component {
             </Link>
             <Link to={"/books"}>
               <Books
-                className="icn"
+                className="icn b"
                 size={60}
                 color={booksColor}
                 weight="fill"
@@ -47,7 +47,7 @@ class Header extends Component {
             </Link>
             <Link to={"/search"}>
               <svg
-                className="icn"
+                className="icn b"
                 width="64"
                 height="64"
                 viewBox="0 0 64 64"
@@ -98,16 +98,16 @@ class Header extends Component {
               />
             </svg>
             <div>
-              <Moon id='themeDarkBtn' onClick={() => {
+              <Moon id='themeDarkBtn'style={{display: 'none'}} onClick={() => {
                 document.getElementById("themeDarkBtn").style.display = "none";
                 document.getElementById("themeLightBtn").style.display ="block";
-              }} size={52} color="#ffffff" weight="fill" />
+              }} className='icn c' size={50} color="#ffffff" weight="fill" />
               <SunDim id='themeLightBtn' onClick={() => {
                 document.getElementById("themeDarkBtn").style.display = "block";
                 document.getElementById("themeLightBtn").style.display = "none";
-              }} className="icn" size={52} color="#ffffff" weight="fill" />
+              }} className="icn c" size={50} color="#ffffff" weight="fill" />
             </div>
-            <img alt="Profile " height={55} src={defaultUser} />
+            <img alt="Profile Pic" height={50} src={defaultUser} />
           </div>
         </div>
         <div className="psuedoHeader"></div>

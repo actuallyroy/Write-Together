@@ -83,6 +83,11 @@
 .inpt::placeholder{
     color: #FFC977;
 }
+
+.inpt:focus{
+    border-color: rgb(239, 123, 0);
+}
+
 p{
     position: absolute;
     left: 70%;
