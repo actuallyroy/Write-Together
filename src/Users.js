@@ -61,7 +61,14 @@ function Users() {
           </div>
         </div>
         <div style={{marginTop: '20px',width: "250px", display: "flex", justifyContent: 'space-between'}}>
-          <button className="f-btn pb">Request</button>
+          <button onClick={() => {
+            let username = localStorage.getItem("username")
+            let token = localStorage.getItem("token")
+            axios.put(`${constants.API_HOST}/api/${userData.username}`, { username: username }, { headers: { Authorization: token } })
+              .then(res => {
+              document.getElementById('fr-btn').innerHTML = "Requested"
+            })
+          }} className="f-btn pb" id='fr-btn'>Request</button>
           <button className="f-btn pb bl">Block</button>
         </div>
         <div className='user-story-feed'>

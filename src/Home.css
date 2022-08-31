@@ -151,6 +151,7 @@ body{
     background-color: #FFECD1;
     flex-direction: column;
     outline: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
 }
 .profile-menu span{
     width: calc(100% - 20px);
