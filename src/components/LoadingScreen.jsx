@@ -24,7 +24,7 @@ class LoadingScreen extends Component {
         <div className="feed-card-body k">
         </div>
 
-        <div className="feed-card-footer">
+        <div className="feed-card-footer l">
           <div className="tmpl"></div>
           <div className="tmpl"></div>
           <div className="tmpl"></div>

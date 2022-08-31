@@ -14,6 +14,7 @@
 .lcu{
     height: 20px;
     width: 200px;
+    margin-left: 10px;
 }
 
 .tmpl.lcu.a{
@@ -21,9 +22,37 @@
     margin-top: 10px;
 }
 
+.tmpl.bk-cvr{
+    height: 200px;
+    width: 200px;
+    margin: 10px 0;
+}
+.bk-t{
+    width: 200px;
+    height: 30px;
+}
+.ck{
+    height: 20px;
+    width: 100px;
+    margin: 10px 0;
+}
+.bt-cont{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.bt{
+    width: 90px;
+    height: 40px;
+    margin: 0;
+}
+
 .k{
     background-color: #d5d5d5;
     animation: Animation 1.5s ease-in-out infinite;
+}
+.feed-card-footer.l{
+    padding-top: 8px;
 }
 
 @keyframes Animation { 

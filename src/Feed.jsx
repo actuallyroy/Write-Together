@@ -53,9 +53,10 @@ function getFeedCards(feedData) {
             oauthorsText += `, @${item.oauthors[0]}`
           if(item.oauthors.length > 1)
             oauthorsText += ` and ${item.oauthors.length - 1} others`
-          return <FeedCard data={item} oauthors={oauthorsText}  />
+          return <FeedCard key={Math.random() } data={item} oauthors={oauthorsText}  />
         })
       }
     </>
   )
 }
+ 

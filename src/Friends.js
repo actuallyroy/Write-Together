@@ -1,7 +1,8 @@
 import Header from "./components/Header"
 import "./Friends.css"
 import defaultUser from './defaultUser.svg'
-import {CheckCircle, XCircle} from 'phosphor-react'
+import { CheckCircle, XCircle } from 'phosphor-react'
+import FriendsLoading from "./components/FriendsLoading"
 import { useState } from "react"
 import {constants} from './constants'
 let axios = require('axios')
@@ -19,28 +20,26 @@ function Friends() {
     setFriendRequestsSent(res.data.friendRequestsSent)
     setFriendRequests(res.data.friendRequests)
   })
-  return(
+  return (
     <>
       <Header friendColor="#FF4040" />
       <div className="main-body">
         <div className="frc">
-          {
-            getFriendRequestsCard(friendRequests)
-          }
+          {getFriendsList(friends)}
+          <div style={{width: '450px'}} id="ld">
+            <div className="label l">Friends </div>
+            <FriendsLoading show={"none"} />
+            <FriendsLoading show={"none"} />
+            <FriendsLoading show={"none"} />
+          </div>
         </div>
+        <div className="frc">{getFriendRequestsCard(friendRequests)}</div>
         <div className="frc">
-          {
-            getFriendRequestsSentCard(friendRequestsSent)
-          }
-        </div>
-        <div className="frc">
-          {
-            getFriendsList(friends)
-          }
+          {getFriendRequestsSentCard(friendRequestsSent)}
         </div>
       </div>
     </>
-  )
+  );
 }
 
 
@@ -52,7 +51,7 @@ function getFriendRequestsCard(friendRequests){
           
           friendRequests.map(item => {
             return(
-              <div className="f-cont">
+              <div className="f-cont" key={Math.random()}>
                 <img alt="" className="f-img" src={defaultUser}/>
                 <div className="f-list">@{item}</div>
                 <CheckCircle onClick={() => {
@@ -81,7 +80,7 @@ function getFriendRequestsSentCard(friendRequestsSent){
         {
           friendRequestsSent.map(item => {
             return(
-              <div className="f-cont">
+              <div className="f-cont" key={Math.random()}>
                 <img alt="" className="f-img" src={defaultUser}/>
                 <div className="f-list">@{item}</div>
                 <XCircle onClick={() => {
@@ -100,6 +99,8 @@ function getFriendRequestsSentCard(friendRequestsSent){
 }
 
 function getFriendsList(friends) {
+  if(document.getElementById('ld'))
+    document.getElementById('ld').style.display = 'none'
   if(friends.length > 0)
     return (
       <>
@@ -107,7 +108,7 @@ function getFriendsList(friends) {
         {
           friends.map(item => {
             return(
-              <div className="f-cont">
+              <div className="f-cont" key={Math.random()}>
                 <img alt="" className="f-img" src={defaultUser}/>
                 <div className="f-list">@{item}</div>
               </div>

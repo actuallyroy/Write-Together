@@ -319,7 +319,7 @@ function getFonts() {
     return(
         <>{
             fonts.map((font) =>{
-               return <option style={{fontFamily: font}}>{font}</option>
+               return <option key={Math.random()} style={{fontFamily: font}}>{font}</option>
             })
         }
         </>

@@ -1,0 +1,44 @@
+.usernm{
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Inter';
+}
+
+.userProPic{
+  margin-right: 10px;
+}
+
+.usr-info.u{
+  width: 100px;
+}
+.usr-info{
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  color: #FFBB54;
+}
+button.bl{
+  background-color: #FF8854;
+}
+button.bl:hover{
+  background-color: #f86628;
+}
+
+.user-story-feed{
+  transform: scale(0.8) translateY(-40px);
+  width: 510px;
+  height: calc(100vh - 110px);
+  left: calc(50% - 255px);
+  overflow: scroll;
+}
+.loading-page{
+  height: 100vh;
+  width: 100vw;
+  z-index: 99;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

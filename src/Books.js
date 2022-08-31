@@ -1,36 +1,41 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import Header from "./components/Header"
 import './Book.css'
 import { constants } from "./constants";
+import BooksLoading from "./components/BooksLoading";
+
 var axios = require('axios')
+
 
 function Books() {
   let [books, setBooks] = useState([])
   let username = window.localStorage.getItem("username")
   let token = window.localStorage.getItem("token")
+  let [bookLoadHide, setBookLoadHide] = useState("block")
   axios.get(`${constants.API_HOST}/api/${username}/docs`, {headers: {Authorization: token}})
   .then(res => {
     if(books.length === 0){
       setBooks(res.data)
+      setBookLoadHide("none")
     }else{
       document.getElementById("ntng").style.display = "none"
     }
   })
-  return(
+  return (
     <>
       <Header booksColor="#FF4040" />
-      <div id="ntng">There's nothing to see here!</div>
       <div className="bkc">
-        {
-          getBooks(books)
-        }
+        <BooksLoading style={{ display: bookLoadHide }} />
+        <BooksLoading style={{ display: bookLoadHide }} />
+        <BooksLoading style={{ display: bookLoadHide }} />
+        {getBooks(books)}
       </div>
     </>
-  )
+  );
 
 }
 
-function getBooks(books){
+function getBooks(books) {
   if(books.length > 0)
     return (
       <>
@@ -40,7 +45,7 @@ function getBooks(books){
             if(book.title.length > 22)
               title = book.title.substring(0, 22) + "..."
             return (
-              <>
+              <Fragment key={Math.random()}>
                 <div className="bk-body">
                   <div onClick={() => window.location.href = `edit/${book.docID}`} className="bk-title">
                   {title}
@@ -90,7 +95,7 @@ function getBooks(books){
                     }} className="f-btn dc">Delete</button>
                   </div>
                 </div>
-              </>
+              </Fragment>
             )
           })
         }

@@ -1,10 +1,11 @@
 import "./Home.css"
 import LeftRibbon from "./components/LeftRibbon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header"
 import { useParams } from 'react-router-dom'
 import { constants, verifyLogin } from './constants'
 import ContextMenu from "./components/ContextMenu";
+import Loading from "./components/Loading";
 
 const axios = require('axios')
 
@@ -35,6 +36,7 @@ function Home() {
     let [posX, setPosX] = useState(0)
     let [posY, setPosY] = useState(0);
     let [showCM, setShowCM] = useState("none")
+    let [loadingDone, setLoadingDone] = useState(false)
     
     //variables for document rendering
     let params = useParams()
@@ -52,8 +54,10 @@ function Home() {
                     if (res.data.pageColor)
                         document.getElementById("textEditor").style.backgroundColor = res.data.pageColor
                 }
+                if (!loadingDone) setLoadingDone(true);
             })
             .catch(error => {
+                document.querySelector(".")
                 let status = error.response.status
                 if(status === 404){
                     window.location.href = "/edit"
@@ -61,152 +65,194 @@ function Home() {
                     window.location.href = "/login"
                 }else if(status === 403)    
                     window.location.href = "/branch/" + docID
+                if (!loadingDone) setLoadingDone(true);
             })
+    } else {
+        if(!loadingDone)
+            setLoadingDone(true)
     }
     tempStory['pageColor'] = pageColor
+    useEffect(() => {
+        if (loadingDone)
+            document.querySelector(".loading-page").style.display = 'none'
+    })
     return (
-        <>  <ContextMenu show={showCM} top={posY} left={posX} />
-            <div className="main-container">
-                <Header />
-                <div className="body">
-                    <div className="title">
-                        <input onClick={() =>{
-                            titleHasFocus = true
-                        }} onBlur={() =>{
-                            tempStory.title = document.getElementById("title").value
-                            setStory(tempStory)
-                        }} id="title" placeholder="Untitled"/>
-                    </div>
-                    <LeftRibbon bold={bold} italic={italic} underline={underline} fontName={fontName} setFontName={setFontName} setPageColor={setPageColor} fontSize={fontSize} alignm={alignm} story={story}/>  
-
-                    {/* Rich Text Editor */}
-                    <div
-                        className="editor-textarea" contentEditable="true" tabIndex={2}
-                        id="textEditor"
-                        style={{
-                            backgroundColor: pageColor
-                        }}
-
-                        onKeyDown={(e) =>{
-                            if(e.key === "Tab"){
-                                e.preventDefault()
-                                        // now insert four non-breaking spaces for the tab key
-                                var sel = window.getSelection();
-                                var range = sel.getRangeAt(0);
-                                var tabNode = document.createTextNode("\u00a0\u00a0\u00a0\u00a0");
-                                range.insertNode(tabNode);
-
-                                range.setStartAfter(tabNode);
-                                range.setEndAfter(tabNode); 
-                                sel.removeAllRanges();
-                                sel.addRange(range);
-                            }
-                        }}
-                        onClick={() => setShowCM("none")}
-                        //detect bold, italic or underline
-                        onSelect={() => {
-                            // setShowCM("none");
-                            document.querySelector(".f-btn.s").style.backgroundColor = "#F7A325"
-                            titleHasFocus = false
-                            if(document.queryCommandValue("Bold") === 'true'){
-                                setBold("gray")
-                            }else{
-                                setBold("#EFEFEF")
-                            }
-                            
-                            if(document.queryCommandValue("Italic") === 'true'){
-                                setItalic("gray")
-                            }else{
-                                setItalic("#EFEFEF")
-                            }
-
-                            if(document.queryCommandValue("Underline") === 'true'){
-                                setUnderline("gray")
-                            }else{
-                                setUnderline("#EFEFEF")
-                            }
-                            
-                            setFontSize(document.queryCommandValue("fontSize"))
-
-                            let fontNameLcl = document.queryCommandValue("fontName").split(",")[0]
-                            if(fontNameLcl.indexOf('"') !== -1){
-                                fontNameLcl = fontNameLcl.substring(1, fontNameLcl.length-1)
-                            }
-                            setFontName(fontNameLcl)
-                            setAlignm(getAlignment())
-                            tempStory.body = document.getElementById("textEditor").innerHTML
-                            setStory(tempStory)
-                        }}
-
-                        //get focus back on focus out
-                        onBlur={()=>{
-                            if(!titleHasFocus)
-                                document.getElementById("textEditor").focus()
-                        }}
-                        onTouchStart = {(e) =>{
-                            let x1 = e.touches[0].screenX
-                            let y1 = e.touches[0].screenY
-                            let x2
-                            let y2
-                            if(e.touches[1]){
-                                x2 = e.touches[1].screenX
-                                y2 = e.touches[1].screenY
-                            }
-
-                            distOld = Math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-                            tpOld = y1
-                            lefOld = x1
-                        }}
-
-                        onTouchMove = {(e) =>{
-                            let textEditor = document.getElementById("textEditor")
-                            scl = Number(textEditor.style.scale)
-                            tp = Number(textEditor.style.top.substring(0, textEditor.style.top.length - 2))
-                            lef = Number(textEditor.style.left.substring(0, textEditor.style.left.length - 2))
-                            if(lef === 0){
-                                lef = (window.innerWidth)/2 - (4.13386*calcScreenDPI());
-                            }
-                            if(scl === 0)
-                                scl = 1
-                            let x1 = e.touches[0].screenX
-                            let y1 = e.touches[0].screenY
-                            let x2
-                            let y2
-                            if(e.touches[1]){
-                                x2 = e.touches[1].screenX
-                                y2 = e.touches[1].screenY
-                            }
-
-                            distNew = Math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-                            tpNew = y1
-                            lefNew = x1
-                            textEditor.style.top = tp + (tpNew - tpOld) + 'px'
-                            textEditor.style.left = lef + (lefNew - lefOld) + 'px'
-                            if(e.touches.length === 2)
-                                textEditor.style.scale = scl + (distNew - distOld)/(500)
-                            distOld = distNew
-                            tpOld = tpNew
-                            lefOld = lefNew
-                        }}
-
-                        onWheel = {(e) => {
-                            e.preventDefault()
-                            if(e.ctrlKey){
-
-                            }
-                        }}
-
-                        onContextMenu={(e) => {
-                            e.preventDefault()
-                            setPosX(e.clientX);
-                            setPosY(e.clientY-17);
-                            setShowCM("fade-in 500ms")
-                        }}
-                    ></div>
-                </div>
+      <>
+        {" "}
+        <ContextMenu show={showCM} top={posY} left={posX} />
+        <div className="main-container">
+          <Header />
+          <div className="loading-page">
+            <Loading size={200} />
+          </div>
+          <div className="body">
+            <div className="title">
+              <input
+                onClick={() => {
+                  titleHasFocus = true;
+                }}
+                onBlur={() => {
+                  tempStory.title = document.getElementById("title").value;
+                  setStory(tempStory);
+                }}
+                id="title"
+                placeholder="Untitled"
+              />
             </div>
-        </>
-    )
+            <LeftRibbon
+              bold={bold}
+              italic={italic}
+              underline={underline}
+              fontName={fontName}
+              setFontName={setFontName}
+              setPageColor={setPageColor}
+              fontSize={fontSize}
+              alignm={alignm}
+              story={story}
+            />
+
+            {/* Rich Text Editor */}
+            <div
+              className="editor-textarea"
+              contentEditable="true"
+              tabIndex={2}
+              id="textEditor"
+              style={{
+                backgroundColor: pageColor,
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Tab") {
+                  e.preventDefault();
+                  // now insert four non-breaking spaces for the tab key
+                  var sel = window.getSelection();
+                  var range = sel.getRangeAt(0);
+                  var tabNode = document.createTextNode(
+                    "\u00a0\u00a0\u00a0\u00a0"
+                  );
+                  range.insertNode(tabNode);
+
+                  range.setStartAfter(tabNode);
+                  range.setEndAfter(tabNode);
+                  sel.removeAllRanges();
+                  sel.addRange(range);
+                }
+              }}
+              onClick={() => setShowCM("none")}
+              //detect bold, italic or underline
+              onSelect={() => {
+                // setShowCM("none");
+                document.querySelector(".f-btn.s").style.backgroundColor =
+                  "#F7A325";
+                titleHasFocus = false;
+                if (document.queryCommandValue("Bold") === "true") {
+                  setBold("gray");
+                } else {
+                  setBold("#EFEFEF");
+                }
+
+                if (document.queryCommandValue("Italic") === "true") {
+                  setItalic("gray");
+                } else {
+                  setItalic("#EFEFEF");
+                }
+
+                if (document.queryCommandValue("Underline") === "true") {
+                  setUnderline("gray");
+                } else {
+                  setUnderline("#EFEFEF");
+                }
+
+                setFontSize(document.queryCommandValue("fontSize"));
+
+                let fontNameLcl = document
+                  .queryCommandValue("fontName")
+                  .split(",")[0];
+                if (fontNameLcl.indexOf('"') !== -1) {
+                  fontNameLcl = fontNameLcl.substring(
+                    1,
+                    fontNameLcl.length - 1
+                  );
+                }
+                setFontName(fontNameLcl);
+                setAlignm(getAlignment());
+                tempStory.body =
+                  document.getElementById("textEditor").innerHTML;
+                setStory(tempStory);
+              }}
+              //get focus back on focus out
+              onBlur={() => {
+                if (!titleHasFocus)
+                  document.getElementById("textEditor").focus();
+              }}
+              onTouchStart={(e) => {
+                let x1 = e.touches[0].screenX;
+                let y1 = e.touches[0].screenY;
+                let x2;
+                let y2;
+                if (e.touches[1]) {
+                  x2 = e.touches[1].screenX;
+                  y2 = e.touches[1].screenY;
+                }
+
+                distOld = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                tpOld = y1;
+                lefOld = x1;
+              }}
+              onTouchMove={(e) => {
+                let textEditor = document.getElementById("textEditor");
+                scl = Number(textEditor.style.scale);
+                tp = Number(
+                  textEditor.style.top.substring(
+                    0,
+                    textEditor.style.top.length - 2
+                  )
+                );
+                lef = Number(
+                  textEditor.style.left.substring(
+                    0,
+                    textEditor.style.left.length - 2
+                  )
+                );
+                if (lef === 0) {
+                  lef = window.innerWidth / 2 - 4.13386 * calcScreenDPI();
+                }
+                if (scl === 0) scl = 1;
+                let x1 = e.touches[0].screenX;
+                let y1 = e.touches[0].screenY;
+                let x2;
+                let y2;
+                if (e.touches[1]) {
+                  x2 = e.touches[1].screenX;
+                  y2 = e.touches[1].screenY;
+                }
+
+                distNew = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                tpNew = y1;
+                lefNew = x1;
+                textEditor.style.top = tp + (tpNew - tpOld) + "px";
+                textEditor.style.left = lef + (lefNew - lefOld) + "px";
+                if (e.touches.length === 2)
+                  textEditor.style.scale = scl + (distNew - distOld) / 500;
+                distOld = distNew;
+                tpOld = tpNew;
+                lefOld = lefNew;
+              }}
+              onWheel={(e) => {
+                e.preventDefault();
+                if (e.ctrlKey) {
+                }
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault();
+                setPosX(e.clientX);
+                setPosY(e.clientY - 17);
+                setShowCM("fade-in 500ms");
+              }}
+            ></div>
+          </div>
+        </div>
+      </>
+    );
 }
 export default Home;
 

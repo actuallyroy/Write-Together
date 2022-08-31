@@ -12,20 +12,33 @@
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
     display: flex;
     opacity: 0;
+    padding: 3px;
 }
-.icn.em:hover{
-    border-radius: 25px;
+
+.icn.em{
+    border-radius: 26px;
 }
 
 .icn.em:hover{
     background-color: black;
     box-shadow: none;
+
 }
+.h{
+    height: 45PX;
+    width: 45px;
+    padding: 2px;
+}
+.em:hover{
+    background-color: black;
+    box-shadow: none;
+}
+
 .pseudo-box{
     position: absolute;
     top: -50px;
     width: 200px;
-    height: 50px;
+    height: 56px;
     z-index: 11;
 }
 .pseudo-box:hover + .reaction-box {

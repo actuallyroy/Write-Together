@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../Home.css'
 import Logo from "./Logo";
-import {House, Users, Books, SunDim, Moon} from 'phosphor-react';
+import {House, Users, Books, GearSix, Power} from 'phosphor-react';
 import defaultUser from '../defaultUser.svg'
 import { Link } from 'react-router-dom'
 import { verifyLogin, changeTheme, themeColor } from '../constants'
@@ -24,9 +24,12 @@ class Header extends Component {
     if(this.props.searchColor) searchColor = this.props.searchColor
     return (
       <>
-        <div style={{
-          backgroundColor: themeColor[theme].primaryColor
-        }} className="header">
+        <div
+          style={{
+            backgroundColor: themeColor[theme].primaryColor,
+          }}
+          className="header"
+        >
           <Logo th={0} size={85} />
           <div className="icons-container">
             <Link to={"/feed"}>
@@ -72,7 +75,7 @@ class Header extends Component {
 
           <div className="profile-pic">
             <svg
-              className="icn"
+              className="icn nw"
               onClick={() => {
                 window.location.href = "/edit";
               }}
@@ -92,8 +95,8 @@ class Header extends Component {
                 x2="8.5"
                 y2="16.5"
                 stroke="#FF4040"
-                stroke-width="3"
-                stroke-linecap="round"
+                strokeWidth="3"
+                strokeLinecap="round"
               />
               <line
                 x1="1.5"
@@ -101,11 +104,12 @@ class Header extends Component {
                 x2="15.5"
                 y2="9.5"
                 stroke="#FF4040"
-                stroke-width="3"
-                stroke-linecap="round"
+                strokeWidth="3"
+                strokeLinecap="round"
               />
             </svg>
-            <div>
+
+            {/* <div>
               <Moon id='themeDarkBtn' style={{display: arr[0]}} onClick={() => {
                 document.getElementById("themeDarkBtn").style.display = "none";
                 document.getElementById("themeLightBtn").style.display = "block";
@@ -119,8 +123,36 @@ class Header extends Component {
                 changeTheme("light");
                 this.setState(themeColor["light"]);
               }} className="icn c" size={50} color="#ffffff" weight="fill" />
+            </div> */}
+            <img
+              onClick={() => {
+                document.querySelector(".profile-menu").style.display = "flex";
+                document.querySelector(".profile-menu").focus();
+              }}
+              alt="Profile Pic"
+              height={50}
+              src={defaultUser}
+            />
+            <div
+              tabIndex={10}
+              onBlur={() => {
+                document.querySelector(".profile-menu").style.display = "none";
+              }}
+              className="profile-menu"
+            >
+              <span onClick={() => {
+                localStorage.removeItem("username")
+                localStorage.removeItem("token");
+                window.location.href = '/login'
+              }}>
+                <Power size={15} color="#444" weight="bold" />&nbsp;
+                Logout
+              </span>
+              <span>
+                <GearSix size={15} color="#444" weight="fill" />
+                &nbsp; Settings
+              </span>
             </div>
-            <img alt="Profile Pic" height={50} src={defaultUser} />
           </div>
         </div>
         <div className="psuedoHeader"></div>

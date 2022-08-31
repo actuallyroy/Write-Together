@@ -1,0 +1,56 @@
+.paper{
+    position: absolute;
+}
+.quill{
+    position: absolute;
+    left: calc(50% - 30px);
+    top: 0;
+    animation: zig-zag 1s infinite;
+}
+
+@keyframes zig-zag {
+    0%{
+        left: calc(50% - 30px);
+        top: 0;
+    }
+    10%{
+        left: calc(50% - 25px);
+        top: -5px;
+    }
+    20%{
+        left: calc(50% - 20px);
+        top: 0;
+    }
+    30%{
+        left: calc(50% - 15px);
+        top: -5px;
+    }
+    40%{
+        left: calc(50% - 10px);
+        top: 0;
+    }
+    50%{
+        left: calc(50% - 5px);
+        top: -5px;
+    }
+    60%{
+        left: calc(50%);
+        top: 0;
+    }
+    70%{
+        left: calc(50% + 5px);
+        top: -5px;
+    }
+    80%{
+        left: calc(50% + 10px);
+        top: 0;
+    }
+    90%{
+        left: calc(50% + 15px);
+        top: -5px;
+    }
+    100%{
+        left: calc(50% + 20px);
+        top: 0;
+    }
+}
