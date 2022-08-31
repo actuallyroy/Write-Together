@@ -1,8 +1,8 @@
 const axios = require('axios')
 
 const constants = {
-  // API_HOST: "https://write-together-api.herokuapp.com"
-  API_HOST: "http://localhost:3000",
+  API_HOST: "https://write-together-api.herokuapp.com"
+  // API_HOST: "http://localhost:3000",
 };
 
 const themeColor = {
