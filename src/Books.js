@@ -4,6 +4,7 @@ import './Book.css'
 import { constants } from "./constants";
 import BooksLoading from "./components/BooksLoading";
 
+
 var axios = require('axios')
 
 
@@ -18,7 +19,7 @@ function Books() {
       setBooks(res.data)
       setBookLoadHide("none")
     }else{
-      document.getElementById("ntng").style.display = "none"
+      
     }
   })
   return (
@@ -74,24 +75,31 @@ function getBooks(books) {
                   <div className="cb-cont">
                     <input className="chk" onChange={() => {
                       book.public = !book.public
+                      document.getElementById(`saveDocBtn${book.docID}`).style.backgroundColor = '#F7A325'
                     }} defaultChecked={book.public} type="checkbox"/>
                     <span>Public</span>
                   </div>
                   <div className="cb-cont">
                     <input className="chk" onChange={() => {
                       book.branchable = !book.branchable
+                      document.getElementById(`saveDocBtn${book.docID}`).style.backgroundColor = '#F7A325'
                     }} defaultChecked={book.branchable} type="checkbox"/>
                     <span>Branchable</span>
                   </div>
                   <div className="pb-btn-cont">
                     <button onClick={() => {
                       let token = window.localStorage.getItem("token")
-                      axios.put(`${constants.API_HOST}/api/docs/update/${book.docID}`, book, {headers: {Authorization: token}})
-                    }} className="f-btn pb">Save</button>
+                      document.getElementById(`saveDocBtn${book.docID}`).style.backgroundColor = 'gray'
+                      axios.put(`${constants.API_HOST}/api/docs/update/${book.docID}`, book, { headers: { Authorization: token } })
+                        .then(res => {
+                      })
+                    }} id={`saveDocBtn${book.docID}`} className="f-btn pb">Save</button>
                     <button onClick={() => {
                       let token = window.localStorage.getItem("token")
-                      axios.put(`${constants.API_HOST}/api/docs/delete/${book.docID}`, book, {headers: {Authorization: token}})
-                      window.location.reload()
+                      axios.put(`${constants.API_HOST}/api/docs/delete/${book.docID}`, book, { headers: { Authorization: token } })
+                        .then(res => {
+                          window.location.reload()
+                      })
                     }} className="f-btn dc">Delete</button>
                   </div>
                 </div>
