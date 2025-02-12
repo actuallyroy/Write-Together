@@ -14,13 +14,13 @@ function Users() {
   let [userStories, setUserStories] = useState([])
   let [userData, setUserData] = useState({})
   let token = localStorage.getItem("token")
-  axios.get(`${constants.API_HOST}/api/users/docs/${params.username}`, {headers: {Authorization: token}})
+  axios.get(`${constants.API_HOST}/api/users/docs/${params.username}`, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
     .then(res => {
       if (userStories.length === 0)
         setUserStories(res.data)
     })
     .catch(error => console.log(error))
-  axios.get(`${constants.API_HOST}/api/users/${params.username}`)
+  axios.get(`${constants.API_HOST}/api/users/${params.username}`, {headers: {"ngrok-skip-browser-warning": true}})
     .then(res => {
       if (Object.keys(userData).length === 0 && document.querySelector(".main-body"))
         setUserData(res.data)
@@ -64,7 +64,7 @@ function Users() {
           <button onClick={() => {
             let username = localStorage.getItem("username")
             let token = localStorage.getItem("token")
-            axios.put(`${constants.API_HOST}/api/${userData.username}`, { username: username }, { headers: { Authorization: token } })
+            axios.put(`${constants.API_HOST}/api/${userData.username}`, { username: username }, { headers: { Authorization: token, "ngrok-skip-browser-warning": true } })
               .then(res => {
               document.getElementById('fr-btn').innerHTML = "Requested"
             })

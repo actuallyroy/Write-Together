@@ -2,7 +2,7 @@ const axios = require('axios')
 
 const constants = {
   // API_HOST: "https://write-together-api.herokuapp.com"
-  API_HOST: "https://46424f89-c6e0-4f18-9798-7492385d26b7-00-15p3ltzjnyi86.worf.replit.dev/",
+  API_HOST: "https://equipped-harmless-gull.ngrok-free.app",
 };
 
 const themeColor = {
@@ -40,7 +40,7 @@ function changeTheme(theme) {
 
 function verifyLogin() {
   let token = window.localStorage.getItem("token")
-  axios.get(`${constants.API_HOST}/api/verify`, { headers: { Authorization: token } })
+  axios.get(`${constants.API_HOST}/api/verify`, { headers: { Authorization: token, "ngrok-skip-browser-warning": true } })
     .then((res) => {
       if (res.data !== 'Verified') {
         window.location.href = "/login"

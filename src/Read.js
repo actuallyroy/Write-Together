@@ -8,7 +8,7 @@ let axios = require('axios')
 function Read() {
   let [story, setStory] = useState({})
   let params = useParams()
-  axios.get(`${constants.API_HOST}/api/docs/get/${params.documentId}`, {headers: {Authorization: window.localStorage.getItem("token")}})
+  axios.get(`${constants.API_HOST}/api/docs/get/${params.documentId}`, {headers: {Authorization: window.localStorage.getItem("token"), "ngrok-skip-browser-warning": true}})
   .then(res => {
     if(Object.keys(story).length === 0){
       setStory(res.data)

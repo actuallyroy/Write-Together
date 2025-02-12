@@ -37,7 +37,7 @@ class LoginForm extends Component {
                   axios.post(`${constants.API_HOST}/api/login/`, {
                     username: username,
                     password: hashedPassword
-                  })
+                  }, {headers: {"ngrok-skip-browser-warning": true}})
                   .then((res) => {
                     window.localStorage.setItem("token", res.data.loginMessage)
                     window.localStorage.setItem("username", username)
@@ -95,7 +95,7 @@ class LoginForm extends Component {
                         name: fullname,
                         email: email,
                         password: hashedPassword,
-                      })
+                      }, {headers: {"ngrok-skip-browser-warning": true}})
                       .then(data =>{
                         document.querySelector(".error-message").style.visibility = 'visible'
                         document.querySelector(".error-message").style.color = 'green'

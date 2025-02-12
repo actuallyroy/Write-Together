@@ -218,14 +218,14 @@ class LeftRibbon extends Component {
                                 story.mauthor = username
                                 let token = localStorage.getItem("token")
                                 if(story.docID){
-                                    axios.put(`${constants.API_HOST}/api/docs/update/${story.docID}`, story, {headers: {Authorization: token}})
+                                    axios.put(`${constants.API_HOST}/api/docs/update/${story.docID}`, story, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
                                     .then(res =>{
                                         console.log("here")
                                         document.querySelector(".f-btn.s").style.backgroundColor = "gray"
                                     })
                                     .catch(error => console.log(error))
                                 }else{
-                                    axios.put(`${constants.API_HOST}/api/docs/${username}`, story, {headers: {Authorization: token}})
+                                    axios.put(`${constants.API_HOST}/api/docs/${username}`, story, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
                                     .then((res) =>{
                                         window.location.href = "/edit/" + res.data.docID
                                     })

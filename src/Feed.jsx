@@ -14,7 +14,7 @@ class Feed extends Component {
       hideLoad: 'block'
     }
     let username = window.localStorage.getItem("username")
-    axios.post(`${constants.API_HOST}/api/feed`, {username: username})
+    axios.post(`${constants.API_HOST}/api/feed`, {username: username, "ngrok-skip-browser-warning": true})
       .then(res => {
         if (this.state.feedData.length === 0) {
           this.setState({ feedData: res.data, hideLoad: 'none' })

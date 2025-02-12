@@ -44,7 +44,7 @@ function Home() {
 
     if (docID) {
         let token = window.localStorage.getItem("token")
-        axios.get(`${constants.API_HOST}/api/docs/${docID}`, {headers: {Authorization: token}})
+        axios.get(`${constants.API_HOST}/api/docs/${docID}`, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
             .then(res => {
             
                 if (res.data.body && Object.keys(tempStory).length === 1) {

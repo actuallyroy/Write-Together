@@ -27,7 +27,7 @@ function Search() {
               let noResFT = document.getElementById("noResFoundTxt")
               u.style.display = "flex";
               if (query !== "") {
-                axios.get(`${constants.API_HOST}/api/search/${query}`)
+                axios.get(`${constants.API_HOST}/api/search/${query}`, {headers: {"ngrok-skip-browser-warning": true}})
                   .then((res) => {
                     console.log(res.data[0].length > 0 || res.data[1].length > 0)
                     if (res.data[0].length > 0 || res.data[1].length > 0) {

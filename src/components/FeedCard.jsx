@@ -20,7 +20,7 @@ class FeedCard extends Component {
   setReaction(react, docID) {
     let token = localStorage.getItem('token')
     let username = localStorage.getItem('username')
-    axios.post(`${constants.API_HOST}/api/like/${docID}`, {username: username, reaction: react}, {headers: {Authorization: token}})
+    axios.post(`${constants.API_HOST}/api/like/${docID}`, {username: username, reaction: react}, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
     .then(res => console.log(res))
     reaction = react
   }

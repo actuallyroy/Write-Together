@@ -13,8 +13,9 @@ function Books() {
   let username = window.localStorage.getItem("username")
   let token = window.localStorage.getItem("token")
   let [bookLoadHide, setBookLoadHide] = useState("block")
-  axios.get(`${constants.API_HOST}/api/${username}/docs`, {headers: {Authorization: token}})
+  axios.get(`${constants.API_HOST}/api/${username}/docs`, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
   .then(res => {
+    console.log(res)
     if(books.length === 0){
       setBooks(res.data)
       setBookLoadHide("none")
@@ -90,13 +91,13 @@ function getBooks(books) {
                     <button onClick={() => {
                       let token = window.localStorage.getItem("token")
                       document.getElementById(`saveDocBtn${book.docID}`).style.backgroundColor = 'gray'
-                      axios.put(`${constants.API_HOST}/api/docs/update/${book.docID}`, book, { headers: { Authorization: token } })
+                      axios.put(`${constants.API_HOST}/api/docs/update/${book.docID}`, book, { headers: { Authorization: token, "ngrok-skip-browser-warning": true } })
                         .then(res => {
                       })
                     }} id={`saveDocBtn${book.docID}`} className="f-btn pb">Save</button>
                     <button onClick={() => {
                       let token = window.localStorage.getItem("token")
-                      axios.put(`${constants.API_HOST}/api/docs/delete/${book.docID}`, book, { headers: { Authorization: token } })
+                      axios.put(`${constants.API_HOST}/api/docs/delete/${book.docID}`, book, { headers: { Authorization: token, "ngrok-skip-browser-warning": true } })
                         .then(res => {
                           window.location.reload()
                       })

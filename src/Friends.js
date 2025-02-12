@@ -14,7 +14,7 @@ function Friends() {
   let [friendRequestsSent, setFriendRequestsSent] = useState([])
   let username = window.localStorage.getItem("username")
   let token = window.localStorage.getItem("token")
-  axios.get(`${constants.API_HOST}/api/${username}/friends`, {headers: {Authorization: token}})
+  axios.get(`${constants.API_HOST}/api/${username}/friends`, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
   .then(res => {
     setFriends(res.data.friends)
     setFriendRequestsSent(res.data.friendRequestsSent)
@@ -57,12 +57,12 @@ function getFriendRequestsCard(friendRequests){
                 <CheckCircle onClick={() => {
                   let username = window.localStorage.getItem("username")
                   let token = window.localStorage.getItem("token")
-                  axios.put(`${constants.API_HOST}/api/accept/${item}`, {username: username}, {headers: {Authorization: token}})
+                  axios.put(`${constants.API_HOST}/api/accept/${item}`, {username: username}, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
                 }} className="fr-b" size={30} color="green" weight="fill" />
                 <XCircle onClick={() => {
                   let username = window.localStorage.getItem("username")
                   let token = window.localStorage.getItem("token")
-                  axios.put(`${constants.API_HOST}/api/remove/${item}`, {username: username}, {headers: {Authorization: token}})
+                  axios.put(`${constants.API_HOST}/api/remove/${item}`, {username: username}, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
                 }} className="fr-b" size={30} color="#FF4040" weight="bold" />
               </div>
             )
@@ -86,7 +86,7 @@ function getFriendRequestsSentCard(friendRequestsSent){
                 <XCircle onClick={() => {
                   let username = window.localStorage.getItem("username")
                   let token = window.localStorage.getItem("token")
-                  axios.put(`${constants.API_HOST}/api/removerequest/${item}`, {username: username}, {headers: {Authorization: token}})
+                  axios.put(`${constants.API_HOST}/api/removerequest/${item}`, {username: username}, {headers: {Authorization: token, "ngrok-skip-browser-warning": true}})
                 }} className="fr-b" size={30} color="#FF4040" weight="bold"/>
               </div>
             )
