@@ -2,7 +2,7 @@ const axios = require('axios')
 
 const constants = {
   // API_HOST: "https://write-together-api.herokuapp.com"
-  API_HOST: "https://new-express-project-2ummofvyg-actuallyroys-projects.vercel.app/",
+  API_HOST: "https://new-express-project-blush-one.vercel.app",
 };
 
 const themeColor = {
